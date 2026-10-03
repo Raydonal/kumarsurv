@@ -4,7 +4,7 @@ Companion R package to:
 
 > Ospina, R., Pimentel, J. S. and Cribari-Neto, F. *Copula-Based
 > Kumaraswamy Regression for Anomaly Detection in Doubly Bounded Time
-> Series*.
+> Series* (manuscript submitted for publication).
 
 A marginal regression model for time series in the unit interval, with a
 Kumaraswamy marginal distribution parametrized directly by a quantile of
@@ -102,11 +102,15 @@ stationary point.
 
 ## Citation
 
-    @article{ospina2026kumarsurv,
-      title   = {Copula-Based Kumaraswamy Regression for Anomaly Detection in Doubly Bounded Time Series},
-      author  = {Ospina, Raydonal and Pimentel, Jonatha S. and Cribari-Neto, Francisco},
-      year    = {2026},
-      journal = {Biostatistics}
+The paper is submitted to *Biostatistics* (Oxford University Press) and
+not yet published; cite it as a manuscript in preparation until it is
+accepted.
+
+    @unpublished{ospina2026kumarsurv,
+      title  = {Copula-Based Kumaraswamy Regression for Anomaly Detection in Doubly Bounded Time Series},
+      author = {Ospina, Raydonal and Pimentel, Jonatha S. and Cribari-Neto, Francisco},
+      year   = {2026},
+      note   = {Manuscript submitted for publication}
     }
 
 ## License
