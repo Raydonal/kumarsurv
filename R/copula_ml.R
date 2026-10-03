@@ -192,13 +192,32 @@ nll_copula <- function(par, y, X, Z, p, q, family = "kuma", tau = 0.5) {
   mu <- plogis(as.numeric(X %*% beta))
   sh <- exp(as.numeric(Z %*% gamma))
   if (any(!is.finite(mu)) || any(mu <= 0 | mu >= 1) || any(sh <= 0)) return(1e10)
-  if (family == "kuma") { fd <- dkuma(y, mu, sh, tau, log = TRUE); u <- pkuma(y, mu, sh, tau) }
-  else                  { fd <- dbetamp(y, mu, sh, log = TRUE);    u <- pbetamp(y, mu, sh) }
+  ## mu/sh passing the check above does not guarantee dkuma()/pkuma() stay in-domain:
+  ## during an unconstrained BFGS line search, sh = exp(Z %*% gamma) can take extreme
+  ## values with no explicit upper bound, and when the Kumaraswamy shape parameter is
+  ## large enough that mu^theta underflows to exactly 0 or 1 in floating point, the
+  ## reparametrization .kuma_a() divides by a log(1) = 0 denominator, producing +-Inf,
+  ## and log() of that (inside dkuma(), for the -Inf case) emits R's "NaNs produced"
+  ## warning. This is an ordinary, expected excursion outside the admissible region
+  ## during optimization, already handled everywhere else in this function by a 1e10
+  ## penalty -- suppressWarnings() here only silences the redundant warning about
+  ## something this function was always going to reject anyway; it does not change
+  ## which parameter values are accepted.
+  suppressWarnings({
+    if (family == "kuma") { fd <- dkuma(y, mu, sh, tau, log = TRUE); u <- pkuma(y, mu, sh, tau) }
+    else                  { fd <- dbetamp(y, mu, sh, log = TRUE);    u <- pbetamp(y, mu, sh) }
+  })
+  if (any(!is.finite(fd)) || any(!is.finite(u))) return(1e10)
   u <- pmin(pmax(u, 1e-12), 1 - 1e-12); eps <- qnorm(u)
   n <- length(y)
   if (p > 0 || q > 0) {
-    ak <- try(.arma_kalman(eps, ar, ma), silent = TRUE)
-    ld <- try(.logdet_arma(ar, ma, n, 80), silent = TRUE)
+    ## Same rationale as the suppressWarnings() above: near/outside the stationarity
+    ## boundary during optimization, the Durbin-Levinson prediction variance can go
+    ## non-positive in floating point, and log() of it warns -- already turned into a
+    ## clean 1e10 penalty by the is.finite(ld) check right below, so the warning is
+    ## redundant noise, not a sign this exploratory point was accepted.
+    ak <- suppressWarnings(try(.arma_kalman(eps, ar, ma), silent = TRUE))
+    ld <- suppressWarnings(try(.logdet_arma(ar, ma, n, 80), silent = TRUE))
     if (inherits(ak, "try-error") || inherits(ld, "try-error") ||
         any(!is.finite(ak$resid)) || !is.finite(ld)) return(1e10)
     quad <- ak$quad; logdet <- ld
