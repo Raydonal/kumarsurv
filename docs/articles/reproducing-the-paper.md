@@ -43,8 +43,8 @@ Gaussian copula with ARMA(1,1) dependence, Kumaraswamy margin at the
 median (`tau = 0.5`):
 
 ``` r
-X <- cbind(1, platina$trend, platina$sin, platina$cos)
-Z <- cbind(1, platina$trend, platina$sin, platina$cos)
+X <- cbind(intercept = 1, trend = platina$trend, sin = platina$sin, cos = platina$cos)
+Z <- cbind(intercept = 1, trend = platina$trend, sin = platina$sin, cos = platina$cos)
 fit <- fit_copula(y, X, Z, p = 1, q = 1, family = "kuma", tau = 0.5)
 #> Warning in log(a): NaNs produced
 #> Warning in log(a): NaNs produced
@@ -88,10 +88,10 @@ fit <- fit_copula(y, X, Z, p = 1, q = 1, family = "kuma", tau = 0.5)
 #> Warning in log(a): NaNs produced
 #> Warning in log(v[1:(k + 1)]): NaNs produced
 fit$par
-#>         mu.      shape.         ar1         ma1        <NA>        <NA> 
-#> -9.17613580  7.65538429  0.05949805 -0.12771616 -1.64090693  0.65964750 
-#>        <NA>        <NA>        <NA>        <NA> 
-#> -0.03409768 -0.01226825  0.91389214 -0.71817252
+#>    mu.intercept        mu.trend          mu.sin          mu.cos shape.intercept 
+#>     -9.17613580      7.65538429      0.05949805     -0.12771616     -1.64090693 
+#>     shape.trend       shape.sin       shape.cos             ar1             ma1 
+#>      0.65964750     -0.03409768     -0.01226825      0.91389214     -0.71817252
 fit$loglik
 #> [1] 3516.435
 ```
@@ -252,6 +252,6 @@ head(y_sim)
 #> Start = 1 
 #> End = 6 
 #> Frequency = 1 
-#> [1] 1.419003e-17 2.555354e-07 7.014871e-09 5.128486e-05 5.254341e-07
-#> [6] 1.184557e-06
+#> [1] 9.275259e-08 2.859146e-06 2.623463e-07 7.664494e-04 4.918441e-09
+#> [6] 2.164632e-05
 ```

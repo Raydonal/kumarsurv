@@ -30,8 +30,8 @@ remotes::install_github("Raydonal/kumarsurv")
 library(kumarsurv)
 data(platina)
 
-X <- cbind(1, platina$trend, platina$sin, platina$cos)
-Z <- cbind(1, platina$trend, platina$sin, platina$cos)
+X <- cbind(intercept = 1, trend = platina$trend, sin = platina$sin, cos = platina$cos)
+Z <- cbind(intercept = 1, trend = platina$trend, sin = platina$sin, cos = platina$cos)
 y <- platina$incidence
 y[y == 0] <- 1e-7  # boundary replacement, see the paper's Section 6.1
 
@@ -75,22 +75,53 @@ conventions regardless of the working directory.
 
 ### Result → script
 
-| Result                                                               | Script                                                                                                                  |
-|----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Table 1 (tail calibration)                                           | `18_calib_cauda.R`                                                                                                      |
-| Table 2 (estimates, Phase I)                                         | `01_dados_reais_SEM.R` (estimates); `analise_covariaveis.R` (standard errors, tests, Wald interval, alternative trends) |
-| Table 3 (multi-`tau` structure)                                      | `analise_multiquantil.R`; `multitau_controle.R` (in-control coverage); `calib_SEM.R` and `teste_multi_tau.R` (note)     |
-| Table 4 (Kumaraswamy vs. beta fit)                                   | `01_dados_reais_SEM.R`; `13_bootstrap_gof.R` ($W^{2}$, $A^{2}$ and $p$-values)                                          |
-| Table 5 (calibration of control limits)                              | `calib_controle_SEM.R`                                                                                                  |
-| Figures (series, control limits, CUSUM, detection)                   | `fig3_horizontal.R`, `06_figuras_SEM.R`, `fig4_cusum_SEM.R`, `07_fig_deteccao_SEM.R`                                    |
-| Simulation: comparison between marginals/parametrizations            | `17_crps_fix_B300.R` (CRPS); `15_sim_comp_B300.R` (pinball loss); `16_simcomp_recovery_B300.R` (biases)                 |
-| Simulation: serial dependence and ARL calibration                    | `09_efeito_correlacao.R`; `10_banda_simulada.R`; `11_arl.R`                                                             |
-| Application: ARMA selection, Ljung-Box, AR profile                   | `tab_arma_selecao.R`; `analise_inflacao_diagnostico.R`; `perfil_ar1_exato.R`                                            |
-| Application: out-of-sample, sensitivity to $\varepsilon$             | `08_vantagem_SEM.R`; `sensib_zeros_controle.R`                                                                          |
-| Application: Farrington comparison                                   | `02_farrington_SEM.R`                                                                                                   |
-| Hurdle model (preliminary)                                           | `analise_harmonicos_inflacao.R`                                                                                         |
-| Supplementary tables/figures                                         | see the header comment of each script in `inst/scripts/`                                                                |
-| Verification scripts (Kalman vs. DL, Hessian step, exact likelihood) | `inst/scripts/verificacao_R47/`, `verificacao_R50/`                                                                     |
+Full mapping, every table and figure in both the paper and its
+supplementary material (this is the complete table that the paper’s own
+supplementary material points here for, not a subset):
+
+**Paper**
+
+| Result                                                    | Script                                                                                                                  |
+|-----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Table 1 (tail calibration under misspecification)         | `18_calib_cauda.R`                                                                                                      |
+| Table 2 (estimates, Phase I)                              | `01_dados_reais_SEM.R` (estimates); `analise_covariaveis.R` (standard errors, tests, Wald interval, alternative trends) |
+| Table 3 (multi-`tau` structure)                           | `analise_multiquantil.R`; `multitau_controle.R` (in-control coverage); `calib_SEM.R` and `teste_multi_tau.R` (note)     |
+| Table 4 (Kumaraswamy vs. beta fit)                        | `01_dados_reais_SEM.R`; `13_bootstrap_gof.R` ($W^{2}$, $A^{2}$ and $p$-values)                                          |
+| Table 5 (calibration of control limits)                   | `calib_controle_SEM.R`                                                                                                  |
+| Figures (series, control limits, CUSUM, detection)        | `fig3_horizontal.R`; `06_figuras_SEM.R`; `fig4_cusum_SEM.R`; `07_fig_deteccao_SEM.R`                                    |
+| Simulation: comparison between marginals/parametrizations | `17_crps_fix_B300.R` (CRPS); `15_sim_comp_B300.R` (pinball loss); `16_simcomp_recovery_B300.R` (biases)                 |
+| Simulation: serial dependence and ARL calibration         | `09_efeito_correlacao.R`; `10_banda_simulada.R`; `11_arl.R`                                                             |
+| Application: ARMA selection, Ljung-Box, AR profile        | `tab_arma_selecao.R`; `analise_inflacao_diagnostico.R`; `perfil_ar1_exato.R`                                            |
+| Application: out-of-sample, sensitivity to $\varepsilon$  | `08_vantagem_SEM.R`; `sensib_zeros_controle.R`                                                                          |
+| Application: Farrington comparison and the chart          | `02_farrington_SEM.R`                                                                                                   |
+| Hurdle model (preliminary, Concluding remarks)            | `analise_harmonicos_inflacao.R`                                                                                         |
+
+**Supplementary material**
+
+| Result                                                          | Script                                                                  |
+|-----------------------------------------------------------------|-------------------------------------------------------------------------|
+| Parameter recovery, design of Varin (2014)                      | `14_mc_validacao_B300.R`                                                |
+| Parameter recovery, application design, and tied values         | `simulacao_desenho_aplicado_300.R`; `simaplic_empates.R`                |
+| Parameter recovery under each marginal distribution             | `16_simcomp_recovery_B300.R`                                            |
+| Effect of ignoring correlation (table) + prediction-band figure | `09_efeito_correlacao.R`; `10_banda_simulada.R`                         |
+| ARL figure (chart-limit calibration curves)                     | `11_arl.R`                                                              |
+| ARMA order selection (full AIC table)                           | `tab_arma_selecao.R`                                                    |
+| Harmonic periodicity + AR likelihood profile tables             | `perfil_ar1_exato.R`; `analise_harmonicos_inflacao.R` (nested submodel) |
+| Sensitivity to the replacement of zeros, bootstrap stability    | `sensib_zeros_controle.R`; `13_bootstrap_gof.R` (stability)             |
+| Out-of-sample predictive performance (full table)               | `08_vantagem_SEM.R`                                                     |
+| Calibration of control limits, with/without trend               | `calib_controle_SEM.R`                                                  |
+| Density and quantile-curve figures                              | `fig_densidades.R`; `fig_quantis_corrigida.R`                           |
+
+**Verification scripts** (`inst/scripts/verificacao_R47/`,
+`verificacao_R50/`)
+
+| What it checks                                | Script                                 |
+|-----------------------------------------------|----------------------------------------|
+| Exact likelihood (Kalman vs. Durbin-Levinson) | `R47_valida_lib.R`; `R47_vero_exata.R` |
+| Numerical Hessian step size                   | `R47_teste_hessiana.R`                 |
+| Definition of the outbreak weeks              | `R47_calib_robustez.R`                 |
+| The two stationary points at `tau = 0.90`     | `R50_tau090_pontos.R`                  |
+| Alternative trends, restricted maxima         | `R50_tendencias_semestral.R`           |
 
 Two known, environment-dependent non-reproducibilities, documented in
 the paper’s supplementary material (Section S3): the Kumaraswamy

@@ -243,7 +243,17 @@ fit_copula <- function(y, X, Z, p = 0, q = 0, family = "kuma", tau = 0.5) {
   fit <- optim(start, obj, method = "BFGS", control = list(maxit = 2000, reltol = 1e-11))
   fit <- optim(fit$par, obj, method = "BFGS", control = list(maxit = 2000, reltol = 1e-12))
   npar <- length(fit$par)
-  nm <- c(paste0("mu.", colnames(X)), paste0("shape.", colnames(Z)))
+  ## colnames(X)/colnames(Z) are NULL when X/Z come from a bare cbind() (no column
+  ## names), which is a common and otherwise entirely valid way to build them. Falling
+  ## through to paste0("mu.", NULL) in that case silently returns a single "mu." element
+  ## instead of one per column (paste0() drops zero-length arguments rather than
+  ## recycling to zero length), so `nm` ends up shorter than `fit$par` and
+  ## `names(fit$par) <- nm` pads the rest with NA -- every coefficient past the first
+  ## two submodels then prints as an unnamed NA, with no warning or error. Fall back to
+  ## generic column labels so this never happens silently.
+  xnm <- colnames(X); if (is.null(xnm) || length(xnm) != kx) xnm <- paste0("x", seq_len(kx))
+  znm <- colnames(Z); if (is.null(znm) || length(znm) != kz) znm <- paste0("z", seq_len(kz))
+  nm <- c(paste0("mu.", xnm), paste0("shape.", znm))
   if (p > 0) nm <- c(nm, paste0("ar", 1:p)); if (q > 0) nm <- c(nm, paste0("ma", 1:q))
   names(fit$par) <- nm
   ll <- -fit$value

@@ -71,8 +71,8 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Raydonal/kumarsurv" class="external-link">kumarsurv</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">platina</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">platina</span><span class="op">$</span><span class="va">trend</span>, <span class="va">platina</span><span class="op">$</span><span class="va">sin</span>, <span class="va">platina</span><span class="op">$</span><span class="va">cos</span><span class="op">)</span></span>
-<span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">platina</span><span class="op">$</span><span class="va">trend</span>, <span class="va">platina</span><span class="op">$</span><span class="va">sin</span>, <span class="va">platina</span><span class="op">$</span><span class="va">cos</span><span class="op">)</span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">1</span>, trend <span class="op">=</span> <span class="va">platina</span><span class="op">$</span><span class="va">trend</span>, sin <span class="op">=</span> <span class="va">platina</span><span class="op">$</span><span class="va">sin</span>, cos <span class="op">=</span> <span class="va">platina</span><span class="op">$</span><span class="va">cos</span><span class="op">)</span></span>
+<span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">1</span>, trend <span class="op">=</span> <span class="va">platina</span><span class="op">$</span><span class="va">trend</span>, sin <span class="op">=</span> <span class="va">platina</span><span class="op">$</span><span class="va">sin</span>, cos <span class="op">=</span> <span class="va">platina</span><span class="op">$</span><span class="va">cos</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">platina</span><span class="op">$</span><span class="va">incidence</span></span>
 <span><span class="va">y</span><span class="op">[</span><span class="va">y</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1e-7</span>  <span class="co"># boundary replacement, see the paper's Section 6.1</span></span>
 <span></span>
@@ -95,6 +95,8 @@
 <div class="section level3">
 <h3 id="result--script">Result → script<a class="anchor" aria-label="anchor" href="#result--script"></a>
 </h3>
+<p>Full mapping, every table and figure in both the paper and its supplementary material (this is the complete table that the paper’s own supplementary material points here for, not a subset):</p>
+<p><strong>Paper</strong></p>
 <table class="table">
 <colgroup>
 <col width="50%">
@@ -106,7 +108,7 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>Table 1 (tail calibration)</td>
+<td>Table 1 (tail calibration under misspecification)</td>
 <td><code>18_calib_cauda.R</code></td>
 </tr>
 <tr class="even">
@@ -131,7 +133,7 @@
 <tr class="even">
 <td>Figures (series, control limits, CUSUM, detection)</td>
 <td>
-<code>fig3_horizontal.R</code>, <code>06_figuras_SEM.R</code>, <code>fig4_cusum_SEM.R</code>, <code>07_fig_deteccao_SEM.R</code>
+<code>fig3_horizontal.R</code>; <code>06_figuras_SEM.R</code>; <code>fig4_cusum_SEM.R</code>; <code>07_fig_deteccao_SEM.R</code>
 </td>
 </tr>
 <tr class="odd">
@@ -159,23 +161,113 @@
 </td>
 </tr>
 <tr class="odd">
-<td>Application: Farrington comparison</td>
+<td>Application: Farrington comparison and the chart</td>
 <td><code>02_farrington_SEM.R</code></td>
 </tr>
 <tr class="even">
-<td>Hurdle model (preliminary)</td>
+<td>Hurdle model (preliminary, Concluding remarks)</td>
 <td><code>analise_harmonicos_inflacao.R</code></td>
 </tr>
+</tbody>
+</table>
+<p><strong>Supplementary material</strong></p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th>Result</th>
+<th>Script</th>
+</tr></thead>
+<tbody>
 <tr class="odd">
-<td>Supplementary tables/figures</td>
-<td>see the header comment of each script in <code>inst/scripts/</code>
+<td>Parameter recovery, design of Varin (2014)</td>
+<td><code>14_mc_validacao_B300.R</code></td>
+</tr>
+<tr class="even">
+<td>Parameter recovery, application design, and tied values</td>
+<td>
+<code>simulacao_desenho_aplicado_300.R</code>; <code>simaplic_empates.R</code>
+</td>
+</tr>
+<tr class="odd">
+<td>Parameter recovery under each marginal distribution</td>
+<td><code>16_simcomp_recovery_B300.R</code></td>
+</tr>
+<tr class="even">
+<td>Effect of ignoring correlation (table) + prediction-band figure</td>
+<td>
+<code>09_efeito_correlacao.R</code>; <code>10_banda_simulada.R</code>
+</td>
+</tr>
+<tr class="odd">
+<td>ARL figure (chart-limit calibration curves)</td>
+<td><code>11_arl.R</code></td>
+</tr>
+<tr class="even">
+<td>ARMA order selection (full AIC table)</td>
+<td><code>tab_arma_selecao.R</code></td>
+</tr>
+<tr class="odd">
+<td>Harmonic periodicity + AR likelihood profile tables</td>
+<td>
+<code>perfil_ar1_exato.R</code>; <code>analise_harmonicos_inflacao.R</code> (nested submodel)</td>
+</tr>
+<tr class="even">
+<td>Sensitivity to the replacement of zeros, bootstrap stability</td>
+<td>
+<code>sensib_zeros_controle.R</code>; <code>13_bootstrap_gof.R</code> (stability)</td>
+</tr>
+<tr class="odd">
+<td>Out-of-sample predictive performance (full table)</td>
+<td><code>08_vantagem_SEM.R</code></td>
+</tr>
+<tr class="even">
+<td>Calibration of control limits, with/without trend</td>
+<td><code>calib_controle_SEM.R</code></td>
+</tr>
+<tr class="odd">
+<td>Density and quantile-curve figures</td>
+<td>
+<code>fig_densidades.R</code>; <code>fig_quantis_corrigida.R</code>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verification scripts</strong> (<code>inst/scripts/verificacao_R47/</code>, <code>verificacao_R50/</code>)</p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th>What it checks</th>
+<th>Script</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Exact likelihood (Kalman vs. Durbin-Levinson)</td>
+<td>
+<code>R47_valida_lib.R</code>; <code>R47_vero_exata.R</code>
 </td>
 </tr>
 <tr class="even">
-<td>Verification scripts (Kalman vs. DL, Hessian step, exact likelihood)</td>
-<td>
-<code>inst/scripts/verificacao_R47/</code>, <code>verificacao_R50/</code>
+<td>Numerical Hessian step size</td>
+<td><code>R47_teste_hessiana.R</code></td>
+</tr>
+<tr class="odd">
+<td>Definition of the outbreak weeks</td>
+<td><code>R47_calib_robustez.R</code></td>
+</tr>
+<tr class="even">
+<td>The two stationary points at <code>tau = 0.90</code>
 </td>
+<td><code>R50_tau090_pontos.R</code></td>
+</tr>
+<tr class="odd">
+<td>Alternative trends, restricted maxima</td>
+<td><code>R50_tendencias_semestral.R</code></td>
 </tr>
 </tbody>
 </table>

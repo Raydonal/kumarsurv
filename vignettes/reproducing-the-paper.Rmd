@@ -46,8 +46,8 @@ Gaussian copula with ARMA(1,1) dependence, Kumaraswamy margin at the median
 (`tau = 0.5`):
 
 ```{r}
-X <- cbind(1, platina$trend, platina$sin, platina$cos)
-Z <- cbind(1, platina$trend, platina$sin, platina$cos)
+X <- cbind(intercept = 1, trend = platina$trend, sin = platina$sin, cos = platina$cos)
+Z <- cbind(intercept = 1, trend = platina$trend, sin = platina$sin, cos = platina$cos)
 fit <- fit_copula(y, X, Z, p = 1, q = 1, family = "kuma", tau = 0.5)
 fit$par
 fit$loglik
