@@ -1,0 +1,32 @@
+Package: kumarsurv
+Title: Copula-Based Kumaraswamy Regression for Anomaly Detection in Doubly Bounded Time Series
+Version: 0.1.0
+Authors@R: c(
+    person("Raydonal", "Ospina", email = "raydonal@castlab.org", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-9884-9090")),
+    person("Jonatha S.", "Pimentel", email = "jonatha.sousa@ufpe.br", role = "aut",
+           comment = c(ORCID = "0000-0003-2982-5383")),
+    person("Francisco", "Cribari-Neto", email = "francisco.cribari@ufpe.br", role = "aut",
+           comment = c(ORCID = "0000-0002-5909-6698"))
+    )
+Description: Maximum-likelihood estimation of a marginal regression model for time
+    series in the unit interval, with a Kumaraswamy marginal distribution
+    parametrized directly by a quantile of prescribed level, serial dependence
+    induced by a Gaussian copula with ARMA structure, and an anomaly-detection
+    layer (predictive quantile residuals, one-step prediction bands, a
+    cumulative sum chart calibrated by average run length). Companion package
+    to Ospina, Pimentel and Cribari-Neto, "Copula-Based Kumaraswamy Regression
+    for Anomaly Detection in Doubly Bounded Time Series", reproducing every
+    number, table and figure in the paper and its supplementary material from
+    the scripts in inst/scripts/.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Depends: R (>= 4.0)
+Imports: stats
+Suggests: numDeriv, ggplot2, patchwork, surveillance, knitr, rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/Raydonal/kumarsurv, https://raydonal.github.io/kumarsurv/
+BugReports: https://github.com/Raydonal/kumarsurv/issues
+LazyData: true
+Config/roxygen2/version: 8.1.0

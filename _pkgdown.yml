@@ -1,0 +1,52 @@
+url: https://raydonal.github.io/kumarsurv/
+
+template:
+  bootstrap: 5
+
+home:
+  title: kumarsurv
+  description: >
+    Copula-based Kumaraswamy regression for anomaly detection in doubly
+    bounded time series.
+
+reference:
+  - title: Kumaraswamy distribution
+    desc: Quantile-parametrized Kumaraswamy density, distribution and quantile functions.
+    contents:
+      - dkuma
+      - pkuma
+      - qkuma
+  - title: Beta distribution
+    desc: Mean-precision beta density, distribution and quantile functions (the comparison marginal).
+    contents:
+      - dbetamp
+      - pbetamp
+      - qbetamp
+  - title: Model fitting
+    desc: Gaussian-copula marginal regression, likelihood, estimation and diagnostics.
+    contents:
+      - nll_copula
+      - fit_copula
+      - fit_copula_multi_tau
+  - title: Residuals and simulation
+    contents:
+      - qresiduals
+      - sim_copula
+  - title: Data
+    contents:
+      - platina
+      - platina_sem
+
+articles:
+  - title: Articles
+    contents:
+      - reproducing-the-paper
+
+navbar:
+  structure:
+    right: [search, github]
+  components:
+    github:
+      icon: fab fa-github
+      href: https://github.com/Raydonal/kumarsurv
+      aria-label: GitHub
