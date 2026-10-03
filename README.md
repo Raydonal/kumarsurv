@@ -62,10 +62,24 @@ Sys.setenv(RUN_PESADOS = "1")
 source(file.path(scripts_dir, "run_all.R"))
 ```
 
-`inst/scripts/copula_ml.R` is the archived, unexported copy of this package's
-own `R/copula_ml.R` (kept so the scripts' own `source("copula_ml.R")` calls
-still work standalone, outside the package); `config_paths.R` resolves the
-scripts' three legacy path conventions regardless of the working directory.
+**`inst/scripts/copula_ml.R` and `R/copula_ml.R` are deliberately two separate
+files, not one kept in sync with the other.** `inst/scripts/copula_ml.R` is a
+frozen, byte-for-byte archival copy of the original script that generated
+every number in the paper: it is never edited, so the scripts in
+`inst/scripts/` (which `source("copula_ml.R")` it directly, not the package's
+namespace) always reproduce exactly what was published, regardless of any
+later change to the package. `R/copula_ml.R` is the same model-fitting code
+documented and exported for general use; it has since received two small
+robustness fixes (parameter-name fallback when `X`/`Z` lack column names;
+suppressing, not changing, spurious warnings from out-of-domain BFGS
+excursions) that do not exist in the frozen script because they do not need
+to: both were verified, before being committed, to leave every fitted value
+(`par`, `se`, `loglik`, `aic`) bit-for-bit unchanged. Concretely, running
+`inst/scripts/01_dados_reais_SEM.R` from a clean checkout of this repository,
+untouched by anything in `R/`, reproduces Table 4 of the paper exactly: AIC
+`-5064.54` (Kumaraswamy) and `-5086.40` (beta) under ARMA(1,1), to the last
+printed digit. `config_paths.R` resolves the scripts' three legacy path
+conventions regardless of the working directory.
 
 ### Result &rarr; script
 
