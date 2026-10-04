@@ -133,11 +133,14 @@ not a subset):
 | Alternative trends, restricted maxima | `R50_tendencias_semestral.R` |
 
 Two known, environment-dependent non-reproducibilities, documented in the
-paper's supplementary material (Section S3): the Kumaraswamy bootstrap
-$p$-value (`13_bootstrap_gof.R`; five runs and their Monte Carlo standard
-error are reported), and fits where the likelihood is nearly flat (`tau =
-0.90`, near the ARMA stationarity boundary), where the last digit of
-floating-point precision can select a different stationary point.
+paper's supplementary material: the Kumaraswamy bootstrap $p$-value
+(`13_bootstrap_gof.R`; Section S6.4, "Sensitivity to the replacement of
+zeros and stability of the bootstrap"; five runs and their Monte Carlo
+standard error are reported), and fits where the likelihood is nearly flat
+(`tau = 0.90`, near the ARMA stationarity boundary; Section S6.6,
+"Calibration of the control limits", paragraph "The level tau = 0.90"),
+where the last digit of floating-point precision can select a different
+stationary point.
 
 ## Citation
 
