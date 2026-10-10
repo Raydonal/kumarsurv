@@ -122,7 +122,8 @@ not a subset):
 
 **Verification scripts**
 ([`inst/scripts/verificacao_R47/`](https://github.com/Raydonal/kumarsurv/tree/master/inst/scripts/verificacao_R47),
-[`verificacao_R50/`](https://github.com/Raydonal/kumarsurv/tree/master/inst/scripts/verificacao_R50))
+[`verificacao_R50/`](https://github.com/Raydonal/kumarsurv/tree/master/inst/scripts/verificacao_R50),
+[`verificacao_R51/`](https://github.com/Raydonal/kumarsurv/tree/master/inst/scripts/verificacao_R51))
 
 | What it checks | Script |
 |---|---|
@@ -131,6 +132,7 @@ not a subset):
 | Definition of the outbreak weeks | `R47_calib_robustez.R` |
 | The two stationary points at `tau = 0.90` | `R50_tau090_pontos.R` |
 | Alternative trends, restricted maxima | `R50_tendencias_semestral.R` |
+| Constant-shape model: likelihood-ratio test of the shape coefficients, sensitivity of the control limits and of the CUSUM (Section S6.7) | `R51_forma_constante_sensib.R` |
 
 Two known, environment-dependent non-reproducibilities, documented in the
 paper's supplementary material: the Kumaraswamy bootstrap $p$-value

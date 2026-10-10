@@ -235,7 +235,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Verification scripts</strong> (<a href="https://github.com/Raydonal/kumarsurv/tree/master/inst/scripts/verificacao_R47" class="external-link"><code>inst/scripts/verificacao_R47/</code></a>, <a href="https://github.com/Raydonal/kumarsurv/tree/master/inst/scripts/verificacao_R50" class="external-link"><code>verificacao_R50/</code></a>)</p>
+<p><strong>Verification scripts</strong> (<a href="https://github.com/Raydonal/kumarsurv/tree/master/inst/scripts/verificacao_R47" class="external-link"><code>inst/scripts/verificacao_R47/</code></a>, <a href="https://github.com/Raydonal/kumarsurv/tree/master/inst/scripts/verificacao_R50" class="external-link"><code>verificacao_R50/</code></a>, <a href="https://github.com/Raydonal/kumarsurv/tree/master/inst/scripts/verificacao_R51" class="external-link"><code>verificacao_R51/</code></a>)</p>
 <table class="table">
 <colgroup>
 <col width="50%">
@@ -269,9 +269,13 @@
 <td>Alternative trends, restricted maxima</td>
 <td><code>R50_tendencias_semestral.R</code></td>
 </tr>
+<tr class="even">
+<td>Constant-shape model: likelihood-ratio test of the shape coefficients, sensitivity of the control limits and of the CUSUM (Section S6.7)</td>
+<td><code>R51_forma_constante_sensib.R</code></td>
+</tr>
 </tbody>
 </table>
-<p>Two known, environment-dependent non-reproducibilities, documented in the paper’s supplementary material (Section S3): the Kumaraswamy bootstrap <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-value (<code>13_bootstrap_gof.R</code>; five runs and their Monte Carlo standard error are reported), and fits where the likelihood is nearly flat (<code>tau = 0.90</code>, near the ARMA stationarity boundary), where the last digit of floating-point precision can select a different stationary point.</p>
+<p>Two known, environment-dependent non-reproducibilities, documented in the paper’s supplementary material: the Kumaraswamy bootstrap <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-value (<code>13_bootstrap_gof.R</code>; Section S6.4, “Sensitivity to the replacement of zeros and stability of the bootstrap”; five runs and their Monte Carlo standard error are reported), and fits where the likelihood is nearly flat (<code>tau = 0.90</code>, near the ARMA stationarity boundary; Section S6.6, “Calibration of the control limits”, paragraph “The level tau = 0.90”), where the last digit of floating-point precision can select a different stationary point.</p>
 </div>
 </div>
 <div class="section level2">

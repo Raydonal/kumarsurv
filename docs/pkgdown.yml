@@ -3,7 +3,7 @@ pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   reproducing-the-paper: reproducing-the-paper.html
-last_built: 2026-10-03T02:53Z
+last_built: 2026-10-10T17:38Z
 urls:
   reference: https://raydonal.github.io/kumarsurv/reference
   article: https://raydonal.github.io/kumarsurv/articles
